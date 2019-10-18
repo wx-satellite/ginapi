@@ -67,7 +67,6 @@ func main() {
 				if next.Before(now) || next.Equal(now) {
 					select {
 					case <-job.GetChan():
-						// 开启子任务去执行
 						go func(job *scheduler.CronJob, name string) {
 							defer func() {
 								if err := recover(); err != nil {
@@ -83,7 +82,6 @@ func main() {
 					}
 				}
 
-				// 睡100毫秒
 				select {
 				case <-time.NewTimer(100 * time.Microsecond).C:
 				}
@@ -92,7 +90,6 @@ func main() {
 		}
 	}()
 
-	// 阻塞主协程
 	select {
 	case err := <-errors:
 		fmt.Println(err)

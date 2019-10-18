@@ -11,15 +11,6 @@ import (
 	"net/http"
 )
 
-/*
- 一些规范：变量的声明最好在方法一开始就使用var声明而不是使用":="这种方式。这样做有一个好处就是配合"goto"使用很方便
-var (
-	name string
-	age int
-)
-
- */
-
 func main() {
 	var (
 		err error
@@ -52,11 +43,8 @@ func main() {
 
 	middlewares = []gin.HandlerFunc{}
 
-	// Routes.
 	router.Load(
-		// Cores.
 		g,
-
 		middlewares...,
 	)
 
