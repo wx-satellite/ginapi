@@ -32,6 +32,8 @@ func main() {
 		panic(err)
 	}
 
+
+
 	// 初始化数据库
 	model.Init()
 	defer model.Close()

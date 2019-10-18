@@ -11,6 +11,7 @@ require (
 	github.com/gorhill/cronexpr v0.0.0-20180427100037-88b0669f7d75
 	github.com/jinzhu/gorm v1.9.11
 	github.com/leodido/go-urn v1.2.0 // indirect
+	github.com/lexkong/log v0.0.0-20180607165131-972f9cd951fc
 	github.com/spf13/viper v1.4.0
 	gopkg.in/go-playground/validator.v9 v9.30.0
 )
