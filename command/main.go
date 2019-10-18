@@ -65,18 +65,25 @@ func main() {
 				expression = job.GetExpression()
 				next = job.GetNext()
 				if next.Before(now) || next.Equal(now) {
-					// 开启子任务去执行
-					go func(name string) {
-						defer func() {
-							if err := recover(); err != nil {
-								fmt.Println("任务：", name, "执行失败了！")
-							}
-						}()
-						job.GetHandle()(job.GetArgs()...)
-					}(name)
-					job.SetNext(expression.Next(now))
+					select {
+					case <-job.GetChan():
+						// 开启子任务去执行
+						go func(job *scheduler.CronJob, name string) {
+							defer func() {
+								if err := recover(); err != nil {
+									fmt.Println("任务：", name, "执行失败了！")
+								}
+							}()
+							job.GetHandle()(job.GetArgs()...)
+							job.SetNext(expression.Next(now))
+							job.SetChan(true)
+						}(job,name)
+					default:
+
+					}
 				}
 
+				// 睡100毫秒
 				select {
 				case <-time.NewTimer(100 * time.Microsecond).C:
 				}
@@ -85,6 +92,7 @@ func main() {
 		}
 	}()
 
+	// 阻塞主协程
 	select {
 	case err := <-errors:
 		fmt.Println(err)

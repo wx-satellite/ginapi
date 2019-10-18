@@ -15,10 +15,23 @@ type CronJob struct {
 	handle CommandFunction
 	name string
 	arg []interface{}
+	ok chan bool
 }
 
 func InitCronJob() *CronJob{
-	return &CronJob{}
+	var (
+		c chan bool
+	)
+	c = make(chan bool,1)
+	c <- true
+	return &CronJob{ok:c}
+}
+
+func (job *CronJob) GetChan() chan bool {
+	return job.ok
+}
+func (job *CronJob) SetChan(t bool) {
+	job.ok <- t
 }
 
 func (job *CronJob) SetName(name string) *CronJob {
