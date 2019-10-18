@@ -1,0 +1,35 @@
+env: local
+runmode: "debug"
+addr: :8081
+name: gin_test
+jwt_secret: "bf01066d8035285d16f780e84ab44649"
+
+mysql:
+  byn:
+    local:
+      username:
+      password:
+      address:
+      database:
+    production:
+      username:
+      password:
+      address:
+      database:
+redis:
+  username:
+  password:
+  address:
+  database:
+
+log:
+  writers: file,stdout
+  logger_level: DEBUG
+  logger_file: log/run.log
+  log_format_text: false
+  rollingPolicy: size
+  log_rotate_date: 1
+  log_rotate_size: 1024
+  log_backup_count: 7
+
+
