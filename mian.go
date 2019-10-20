@@ -60,7 +60,7 @@ func main() {
 	}()
 
 	g.GET("/test1", func(context *gin.Context) {
-		fmt.Println("/test1")
+		context.String(http.StatusOK, "it is a test")
 	})
 
 

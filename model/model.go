@@ -1,7 +1,6 @@
 package model
 
 import (
-	"gopkg.in/go-playground/validator.v9"
 	"time"
 )
 
@@ -12,7 +11,4 @@ type BaseModel struct {
 	UpdatedAt time.Time `gorm:"column:updated_at" json:"updated_at"`
 }
 
-func (baseModel *BaseModel) Validate(model interface{}) error {
-	v := validator.New()
-	return v.Struct(model)
-}
+
