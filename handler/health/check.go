@@ -145,7 +145,7 @@ func CpuCheck(ctx *gin.Context) {
 	everyFive = a.Load5
 	everyFifteen = a.Load15
 
-	result = fmt.Sprintf("%s - Load average: 最近1分钟的平均负载：%.2f,最近5分钟的平均负载 %.2f, ：最近15分钟的平均负载：%.2f | Cores: %d", result, everyOne, everyFive, everyFifteen, cores)
+	result = fmt.Sprintf("%s - Load average: 最近1分钟的平均负载：%.2f,最近5分钟的平均负载 %.2f, ：最近15分钟的平均负载：%.2f | 物理CPU核数: %d", result, everyOne, everyFive, everyFifteen, cores)
 
 	ctx.String(status, result)
 

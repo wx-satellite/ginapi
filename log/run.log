@@ -14427,3 +14427,6 @@
 {"level":"INFO","timestamp":"2019-10-20 12:16:55.048","file":"gin_test/mian.go:59","msg":"心跳检测成功，路由可用。"}
 {"level":"INFO","timestamp":"2019-10-20 12:20:54.106","file":"gin_test/mian.go:59","msg":"心跳检测成功，路由可用。"}
 {"level":"INFO","timestamp":"2019-10-20 14:04:37.279","file":"gin_test/mian.go:59","msg":"心跳检测成功，路由可用。"}
+{"level":"INFO","timestamp":"2019-10-20 14:19:38.502","file":"gin_test/mian.go:59","msg":"心跳检测成功，路由可用。"}
+{"level":"INFO","timestamp":"2019-10-20 14:20:11.000","file":"gin_test/mian.go:59","msg":"心跳检测成功，路由可用。"}
+{"level":"INFO","timestamp":"2019-10-20 14:20:58.980","file":"gin_test/mian.go:59","msg":"心跳检测成功，路由可用。"}
