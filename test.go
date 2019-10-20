@@ -1,6 +1,8 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type Person struct {
 }
@@ -15,12 +17,24 @@ type Student struct {
 	name string
 }
 
+
+type Dog struct {
+	Name string
+	Age int
+}
+
+func (dog Dog) String() string {
+	return  "it is a test"
+}
+
+
+
 func main()  {
 	var (
-		student *Student
+		dog Dog
 	)
-	student = &Student{name: "weixin"}
-
-	fmt.Println(student)
-	student.say()
+	dog.Name = "weixin"
+	dog.Age = 12
+	fmt.Println(fmt.Sprintf("%v", dog))
+	fmt.Println(fmt.Sprintf("%s", dog))
 }

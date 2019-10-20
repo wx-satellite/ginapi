@@ -1,6 +1,7 @@
 package router
 
 import (
+	"gin/handler/health"
 	"gin/router/middleware"
 	"github.com/gin-gonic/gin"
 )
@@ -9,6 +10,7 @@ func Load(engine *gin.Engine, mw ...gin.HandlerFunc) {
 	var (
 		uGroup *gin.RouterGroup
 		sGroup *gin.RouterGroup
+		h *gin.RouterGroup
 		v1Edition *gin.RouterGroup
 	)
 	// 处理某些请求时可能因为bug或者异常导致程序panic，为了不影响下一次请求的调用，需要通过gin.Recover()来恢复服务器
@@ -20,6 +22,16 @@ func Load(engine *gin.Engine, mw ...gin.HandlerFunc) {
 	// 自定义的中间件
 	engine.Use(mw...)
 
+	// health检测
+	h = engine.Group("/health")
+	{
+		h.Use(middleware.CanCheckHealth)
+		h.GET("/ping",health.Pong)
+		h.GET("/disk",health.DiskCheck)
+		h.GET("/memory",health.MemoryCheck)
+		h.GET("/cpu", health.CpuCheck)
+
+	}
 
 	// v1版本
 	v1Edition = engine.Group("/v1")
@@ -27,7 +39,7 @@ func Load(engine *gin.Engine, mw ...gin.HandlerFunc) {
 		// 会话相关
 		sGroup = v1Edition.Group("session")
 		{
-			sGroup.GET("/s", func(context *gin.Context) {
+			sGroup.GET("/s",func(context *gin.Context) {
 				context.JSON(200, "it is a test~")
 			})
 		}

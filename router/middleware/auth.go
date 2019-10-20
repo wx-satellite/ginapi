@@ -9,8 +9,10 @@ import (
 
 func CheckAuth(ctx *gin.Context) {
 	if content, err := token.ParseRequest(ctx); err != nil {
+		//ctx.AbortWithStatus(401)
+
 		handler.SendResponse(ctx, errno.ErrJWTIsNotLegal, nil)
-		ctx.AbortWithStatus(401)
+		ctx.Abort()
 		return
 	} else {
 		ctx.Set("user", content)
