@@ -24,19 +24,19 @@ func main() {
 	if err = jobManager.PushJob(
 		scheduler.
 			InitCronJob().
-			SetExpression("*/5 * * * * * *", now).
+			SetExpression("* * * * *", now).
 			SetName("每五秒输出hello").
 			SetHandle(handler.SayHello).
 			SetArgs(33333),
 		scheduler.
 			InitCronJob().
-			SetExpression("*/10 * * * * * *", now).
+			SetExpression("* * * * *", now).
 			SetName("每十秒输出hello").
 			SetHandle(handler.SayHello).
 			SetArgs(66666),
 		scheduler.
 			InitCronJob().
-			SetExpression("*/20 * * * * * *", now).
+			SetExpression("* * * * *", now).
 			SetName("每20分钟执行一次").
 			SetHandle(handler.SayHello).
 			SetArgs(888888),

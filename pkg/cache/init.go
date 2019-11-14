@@ -3,11 +3,12 @@ package cache
 import (
 	"github.com/garyburd/redigo/redis"
 	"github.com/spf13/viper"
+	"time"
 )
 
 type ManagerCache struct {
 	// 多个缓存，可扩展
-	Redis redis.Conn
+	Redis *redis.Pool
 }
 
 
@@ -40,18 +41,21 @@ func (cache *ManagerCache) RedisClose() {
 	}
 }
 
-func GetRedisExample() redis.Conn {
+func GetRedisExample() *redis.Pool {
 	var (
-		err error
-		r redis.Conn
+		r *redis.Pool
 	)
-	r, err = redis.Dial("tcp",
-		viper.GetString("redis.address"),
-		redis.DialPassword(viper.GetString("redis.password")),
-		redis.DialDatabase(viper.GetInt("redis.database")),
-	)
-	if err != nil {
-		panic(err)
+	r = &redis.Pool{
+		MaxActive: 1000,
+		MaxIdle: 30,
+		IdleTimeout: 30 * time.Second,
+		Dial: func() (conn redis.Conn, e error) {
+			return redis.Dial("tcp",
+				viper.GetString("redis.address"),
+				redis.DialPassword(viper.GetString("redis.password")),
+				redis.DialDatabase(viper.GetInt("redis.database")),
+			)
+		},
 	}
 	return r
 }
